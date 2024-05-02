@@ -25,9 +25,9 @@
   },
   "homepage": "https://github.com/enhance-dev/enhance-morphdom-mixin#readme",
   "devDependencies": {
-    "@enhance/custom-element": "^1.0.2",
-    "@enhance/shadow-element": "^1.0.3",
-    "@enhance/store": "^1.0.1",
+    "@enhance/custom-element": "^1.2.3",
+    "@enhance/shadow-element": "^1.0.6",
+    "@enhance/store": "^1.0.2",
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@rollup/plugin-node-resolve": "^15.2.2",
     "@web/test-runner": "^0.17.0",
