@@ -37,9 +37,6 @@
     class MyHeaderElement extends MorphdomMixin(CustomElement) {
       constructor() {
         super()
-        this.header = this.querySelector('h1')
-        this.paragraph = this.querySelector('p')
-        this.anchor = this.querySelector('a')
       }
 
       render(args) {
@@ -50,14 +47,12 @@
         return [ 'heading' ]
       }
     }
+
     customElements.define('my-header', MyHeaderElement)
 
     class MyShadyHeaderElement extends MorphdomMixin(ShadowElement) {
       constructor() {
         super()
-        this.header = this.querySelector('h1')
-        this.paragraph = this.querySelector('p')
-        this.anchor = this.querySelector('a')
       }
 
       render(args) {
@@ -86,6 +81,7 @@
           assert.equal(textContentParagraph, 'YOLO', 'Should morph heading')
           assert.equal(textContentAnchor, '/foo/YOLO', 'Should morph heading')
         })
+
         it('should morph shadow element', ()=> {
           const testComponent = document.querySelector('my-shady-header')
           testComponent.setAttribute('heading', 'YOLO')
@@ -99,6 +95,7 @@
           assert.equal(textContentParagraph, 'YOLO', 'Should morph heading')
           assert.equal(textContentAnchor, '/foo/YOLO', 'Should morph heading')
         })
+
       })
     })
   </script>
