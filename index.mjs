@@ -31,7 +31,7 @@ const MorphdomMixin = (superclass) => class extends superclass {
 
     if (this['expandSlots']) {
       const slotEl = document.createElement('div')
-      const slottedElements = root.querySelectorAll('[data-slotted]')
+      const slottedElements = root.querySelectorAll('[slot=""]')
       for (const value of slottedElements.values()) {
         slotEl.appendChild(value)
       }
