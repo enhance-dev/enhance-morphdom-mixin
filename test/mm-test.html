@@ -7,8 +7,13 @@
 </head>
 <body>
 
-  <my-header heading="My list"></my-header>
+  <my-header id="one" heading="My list"></my-header>
+
   <my-shady-header heading="My shady list"></my-shady-header>
+
+  <my-header id="two" heading="My unnamed slot button list">
+    <button>Submit</button>
+  </my-header>
 
   <script type="module">
     import { runTests } from '@web/test-runner-mocha'
@@ -30,6 +35,7 @@
         <h1>${heading}</h1>
         <p>${heading}</p>
         <a href="/foo/${heading}"></a>
+        <slot></slot>
       `
     }
 
@@ -69,7 +75,7 @@
     runTests(()=> {
       describe('MorphdomMixin', ()=> {
         it('should morph custom element', ()=> {
-          const testComponent = document.querySelector('my-header')
+          const testComponent = document.getElementById('one')
           testComponent.setAttribute('heading', 'YOLO')
           const testHeader = testComponent.querySelector('h1')
           const testParagraph = testComponent.querySelector('p')
@@ -94,6 +100,22 @@
           assert.equal(textContent, 'YOLO', 'Should morph heading')
           assert.equal(textContentParagraph, 'YOLO', 'Should morph heading')
           assert.equal(textContentAnchor, '/foo/YOLO', 'Should morph heading')
+        })
+
+        it('should morph custom element with unnamed slot', ()=> {
+          const testComponent = document.getElementById('two')
+          testComponent.setAttribute('heading', 'SLOT')
+          const testHeader = testComponent.querySelector('h1')
+          const testParagraph = testComponent.querySelector('p')
+          const testAnchor = testComponent.querySelector('a')
+          const testButton = testComponent.querySelector('button')
+          const textContent = testHeader.textContent
+          const textContentParagraph = testParagraph.textContent
+          const textContentAnchor = testAnchor.getAttribute('href')
+          assert.equal(textContent, 'SLOT', 'Should morph heading')
+          assert.equal(textContentParagraph, 'SLOT', 'Should morph heading')
+          assert.equal(textContentAnchor, '/foo/SLOT', 'Should morph heading')
+          assert.ok(testButton, 'Should morph unnamed slot content')
         })
 
       })
