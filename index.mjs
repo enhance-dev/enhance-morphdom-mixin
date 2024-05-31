@@ -16,12 +16,28 @@ const MorphdomMixin = (superclass) => class extends superclass {
     const tmp = this.render({
       html: this.html,
       state: this.state
-    })
+    }).trim()
+
     const updated = document.createElement('div')
-    updated.innerHTML = tmp.trim()
+    updated.innerHTML = tmp
+
+    if (this['scrubTemplate']) {
+      this.scrubTemplate(updated)
+    }
+
     const root = this.shadowRoot
       ? this.shadowRoot
       : this
+
+    if (!this.shadowRoot && this['expandSlots']) {
+      const slotEl = document.createElement('div')
+      const slottedElements = root.querySelectorAll(`${this.tagName.toLowerCase()} > [slot=""]`)
+      for (const value of slottedElements.values()) {
+        slotEl.appendChild(value)
+      }
+      updated.innerHTML = this.expandSlots(slotEl.innerHTML, updated.innerHTML)
+    }
+
     morphdom(
       root,
       updated,
